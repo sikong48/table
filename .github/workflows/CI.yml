@@ -32,3 +32,11 @@ jobs:
       - uses: nrwl/nx-set-shas@v2
       - run: nx affected --target=build
       - run: nx affected --target=test --configuration=ci
+jobs:
+  needs: build
+  build_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: commit push
+        run: docker info
+      
