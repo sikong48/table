@@ -37,7 +37,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: commit push
-        run: docker info
+        run: |
+          docker info
+          pwd
+          ls
       - name: Build and push Docker image
         run: docker build -t registry.cn-hongkong.aliyuncs.com/merico/table:test .
       
