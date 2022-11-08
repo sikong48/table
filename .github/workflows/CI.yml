@@ -34,8 +34,11 @@ jobs:
       - name: Get commit
         id: commitid
         run: echo "::set-output name=commitid::$(git rev-parse --short HEAD)"
-      - name: Build docker image
+      - name: Build table  image
         run: docker build -t registry.cn-hongkong.aliyuncs.com/merico/table:${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.commitid.outputs.commitid }} .
-      - name: Push image
+      - name: Push table image
         run: docker push registry.cn-hongkong.aliyuncs.com/merico/table:${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.commitid.outputs.commitid }}
-      
+      - name: Build table website image
+        run: docker build -f Dockerfile-website -t registry.cn-hongkong.aliyuncs.com/merico/table-website:${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.commitid.outputs.commitid }} .
+      - name: Push table website image
+        run: docker push registry.cn-hongkong.aliyuncs.com/merico/table-website:${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.commitid.outputs.commitid }}
