@@ -23,7 +23,7 @@ jobs:
           pwd
           ls
       - name: docker login
-        run: docker login -p ${{ REGISTRY_HONGKONG_SECRET }} --username=devops@1148299792416188 registry.cn-hongkong.aliyuncs.com
+        run: docker login -p ${{ secrets.REGISTRY_HONGKONG_SECRET }} --username=devops@1148299792416188 registry.cn-hongkong.aliyuncs.com
       - name: Build and push Docker image
         run: docker build -t registry.cn-hongkong.aliyuncs.com/merico/table:test .
       
