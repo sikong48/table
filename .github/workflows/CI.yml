@@ -35,7 +35,7 @@ jobs:
         id: commitid
         run: echo "::set-output name=commitid::$(git rev-parse --short HEAD)"
       - name: Build docker image
-        run: docker build -t registry.cn-hongkong.aliyuncs.com/merico/table:${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.date.outputs.commitid }} .
+        run: docker build -t registry.cn-hongkong.aliyuncs.com/merico/table:${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.commitid.outputs.commitid }} .
       - name: Push image
-        run: docker push registry.cn-hongkong.aliyuncs.com/merico/table:${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.date.outputs.commitid }}
+        run: docker push registry.cn-hongkong.aliyuncs.com/merico/table:${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.commitid.outputs.commitid }}
       
