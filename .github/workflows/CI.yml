@@ -36,7 +36,7 @@ jobs:
         run: echo "::set-output name=commitid::$(git rev-parse --short HEAD)"
       - name: image tag
         id: tag
-        run: "::set-output tag=branch::$(echo ${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.commitid.outputs.commitid }})"
+        run: echo "::set-output name=tag::$(echo ${{ steps.extract_branch.outputs.branch }}_${{ steps.date.outputs.today }}_${{ steps.commitid.outputs.commitid }})"
       - name: Build table  image
         run: docker build -t registry.cn-hongkong.aliyuncs.com/merico/table:${{ steps.tag.outputs.tag }} .
       - name: Push table image
