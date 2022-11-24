@@ -41,11 +41,16 @@ jobs:
         run: |
           echo "VITE_API_BASE_URL=/devtable/api/" > website/.env
           echo "VITE_WEBSITE_BASE_URL=/devtable/website/" >> website/.env
-      - name: Build table  image
-        run: docker build -t registry.cn-hongkong.aliyuncs.com/merico/table:${{ steps.tag.outputs.tag }} .
-      - name: Push table image
-        run: docker push registry.cn-hongkong.aliyuncs.com/merico/table:${{ steps.tag.outputs.tag }}
       - name: Build table website image
-        run: docker build -f Dockerfile-website -t registry.cn-hongkong.aliyuncs.com/merico/table-website:${{ steps.tag.outputs.tag }} .
+        run: docker build -f Dockerfile-website -t registry.cn-hongkong.aliyuncs.com/merico/table-website-test:${{ steps.tag.outputs.tag }} .
       - name: Push table website image
-        run: docker push registry.cn-hongkong.aliyuncs.com/merico/table-website:${{ steps.tag.outputs.tag }}
+        run: docker push registry.cn-hongkong.aliyuncs.com/merico/table-website-test:${{ steps.tag.outputs.tag }}
+      - name: clone devtable preset dashboard
+        run: git clone https://${{ secrets.GITLAB_USER }}:${{ secrets.GITLAB_TOKEN }}@gitlab.com/merico-dev/ee/devtable-preset-dashboard.git
+      - name: mv directory
+        run: mv devtable-preset-dashboard/presets api/
+      - name: Build table  image
+        run: docker build -t registry.cn-hongkong.aliyuncs.com/merico/table-test:${{ steps.tag.outputs.tag }} .
+      - name: Push table image
+        run: docker push registry.cn-hongkong.aliyuncs.com/merico/table-test:${{ steps.tag.outputs.tag }}
+
